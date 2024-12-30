@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 4581be4e2ab02bd6b3784981f2726b782d2574f2a5e109d2581e0bf55726e991
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - setuptools
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - joblib
     - platformdirs
 
@@ -28,6 +28,7 @@ test:
   requires:
     - pytest
     - pytest-mock
+    - python {{ python_min }}
   imports:
     - fscacher
     - fscacher.tests
